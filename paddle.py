@@ -3,7 +3,7 @@ from turtle import Turtle
 
 class Paddle(Turtle):
 
-    def __init__(self):
+    def __init__(self, position):
         super().__init__()
         self.shape('square')
         self.color('white')
@@ -11,7 +11,7 @@ class Paddle(Turtle):
         self.penup()
         self.shapesize(stretch_len=1, stretch_wid=5)
         self.resizemode('user')
-        self.setpos(350, 0)
+        self.setpos(position)
 
     def go_up(self):
         self.sety(self.ycor() + 20)
