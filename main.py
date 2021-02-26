@@ -1,30 +1,44 @@
-from turtle import Screen
+from turtle import Screen, Turtle
 from paddle import Paddle
 from ball import Ball
 from scoreboard import Scoreboard
 import time
 
+# Build the screen
 screen = Screen()
-
 screen.setup(width=800, height=600)
 screen.bgcolor('black')
 screen.title('Pong')
 screen.tracer(0)
 
+# Build our game objects
 r_paddle = Paddle((350, 0))
 l_paddle = Paddle((-350, 0))
 ball = Ball()
 scoreboard = Scoreboard()
 
+# Draw the center-line
+center_line = Turtle(shape='square')
+center_line.penup()
+center_line.goto(0, 410)
+center_line.color('white')
+center_line.setheading(270)
+center_line.forward(25)
+while center_line.ycor() > -410:
+    center_line.pendown()
+    center_line.forward(50)
+    center_line.penup()
+    center_line.forward(50)
+
+# Set-up our key bindings
 screen.listen()
 screen.onkey(r_paddle.go_up, 'Up')
 screen.onkey(r_paddle.go_down, 'Down')
 screen.onkey(l_paddle.go_up, 'w')
 screen.onkey(l_paddle.go_down, 's')
 
+# Start the main loop
 game_is_on = True
-
-ball.setheading(45)
 while game_is_on:
     screen.update()
     time.sleep(ball.move_speed)
@@ -50,5 +64,3 @@ while game_is_on:
         scoreboard.r_point()
         ball.reset_position()
         ball.bounce_x()
-
-screen.exitonclick()
